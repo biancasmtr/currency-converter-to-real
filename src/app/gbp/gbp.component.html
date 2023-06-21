@@ -1,0 +1,23 @@
+<div class="currency">
+  <div class="title">Libra Esterlina</div>
+  <ng-container *ngIf="gbpValue !== null || !gbpValue">
+    <span class="value" [ngStyle]="{'color': getCurrencyColor(gbpValue)}">{{ gbpValue | currency: 'BRL' }}</span>
+  </ng-container>
+  <ng-container *ngIf="gbpValue === null || !gbpValue">
+    <span class="error">Algo deu errado</span>
+    <button class="reload-button" (click)="reloadPage()">
+      <img *ngIf="loading" src="../../assets/loader.svg" alt="Loader">
+      <span *ngIf="!loading">Recarregar</span>
+    </button>
+  </ng-container>
+  <div class="info">
+    <div class="variation">
+      <div class="tit">Variação (%)</div>
+      <span class="var">{{ gbpVariation | percent }}</span>
+    </div>
+    <div class="last-update">
+      <div class="tit">Atualizado</div>
+      <span class="atual">{{ gbpLastUpdate | date: 'HH:mm:ss' }}</span>
+    </div>
+  </div>
+</div>

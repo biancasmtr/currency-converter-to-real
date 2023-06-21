@@ -1,0 +1,23 @@
+<div class="currency">
+  <div class="title">Peso Argentino</div>
+  <ng-container *ngIf="arsValue !== null || !arsValue">
+    <span class="value" [ngStyle]="{'color': getCurrencyColor(arsValue)}">{{ arsValue | currency: 'BRL' }}</span>
+  </ng-container>
+  <ng-container *ngIf="arsValue === null || !arsValue">
+    <span class="error">Algo deu errado</span>
+    <button class="reload-button" (click)="reloadPage()">
+      <img *ngIf="loading" src="../../assets/loader.svg" alt="Loader">
+      <span *ngIf="!loading">Recarregar</span>
+    </button>
+  </ng-container>
+  <div class="info">
+    <div class="variation">
+      <div class="tit">Variação (%)</div>
+      <span class="var">{{ arsVariation | percent }}</span>
+    </div>
+    <div class="last-update">
+      <div class="tit">Atualizado</div>
+      <span class="atual">{{ arsLastUpdate | date: 'HH:mm:ss' }}</span>
+    </div>
+  </div>
+</div>

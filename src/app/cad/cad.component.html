@@ -1,0 +1,23 @@
+<div class="currency">
+  <div class="title">{{ 'Dólar Canadense' }}</div>
+  <ng-container *ngIf="cadValue !== null || !cadValue">
+    <span class="value" [ngStyle]="{'color': getCurrencyColor(cadValue)}">{{ cadValue | currency: 'BRL' }}</span>
+  </ng-container>
+  <ng-container *ngIf="cadValue === null || !cadValue">
+    <span class="error">Algo deu errado</span>
+    <button class="reload-button" (click)="reloadPage()">
+      <img *ngIf="loading" src="../../assets/loader.svg" alt="Loader">
+      <span *ngIf="!loading">Recarregar</span>
+    </button>
+  </ng-container>
+  <div class="info">
+    <div class="variation">
+      <div class="tit">Variação (%)</div>
+      <span class="var">{{ cadVariation | percent }}</span>
+    </div>
+    <div class="last-update">
+      <div class="tit">Atualizado</div>
+      <span class="atual">{{ cadLastUpdate | date: 'HH:mm:ss' }}</span>
+    </div>
+  </div>
+</div>
