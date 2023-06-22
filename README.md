@@ -3,7 +3,7 @@
 O projeto consiste em um site simples onde apresenta informações de conversão de moedas, sendo exibidas as informações do valor de R$1 (BRL) para as seguintes 3 moedas: Dólar Canadense (CAD), Peso Argentino (ARS) e Libra Esterlina (GBP). Os valores são recuperados através da [Awsome API](https://docs.awesomeapi.com.br/api-de-moedas). São exibidos na tela as informações de valor da moeda, variação e último horário de atualização.
 Os dados são salvos em cache no localStorage por 3 minutos e a página atualiza as informações também a cada 3 minutos.
 
-O projeto foi criado em Angular 16. Os testes foram realizados com Cypress e estilisado com SCSS.
+O projeto foi criado em Angular 16. Os testes foram realizados com Jasmine e Karma e estilizado com SCSS.
 
 ## Antes de começar
 
