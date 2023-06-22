@@ -9,6 +9,7 @@ import { CadComponent } from './cad/cad.component';
 import { ArsComponent } from './ars/ars.component';
 import { GbpComponent } from './gbp/gbp.component';
 import { ConverterComponent } from './converter/converter.component';
+import { NumberFormatComponent } from './number-format/number-format.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ConverterComponent } from './converter/converter.component';
     CadComponent,
     ArsComponent,
     GbpComponent,
-    ConverterComponent
+    ConverterComponent,
+    NumberFormatComponent
   ],
   imports: [
     BrowserModule,

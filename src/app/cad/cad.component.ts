@@ -15,7 +15,7 @@ export class CadComponent implements OnInit {
   showFixedConversionMessage: boolean = false;
   loading: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
     this.updateCurrencyValues();
@@ -25,9 +25,9 @@ export class CadComponent implements OnInit {
   }
 
   fetchCurrencyDataCad() {
-    const cacheData = localStorage.getItem('currencyDataCad');
-    if (cacheData) {
-      const parsedData = JSON.parse(cacheData);
+    const cacheDataCad = localStorage.getItem('currencyDataCad');
+    if (cacheDataCad) {
+      const parsedData = JSON.parse(cacheDataCad);
       const timestamp = parsedData.timestamp;
       const currentTime = new Date().getTime();
       const timeDiff = currentTime - timestamp;
@@ -47,7 +47,7 @@ export class CadComponent implements OnInit {
       this.cadVariation = parseFloat(cadVariation);
       this.cadLastUpdate = new Date(cadLastUpdate);
 
-      const cacheData = {
+      const cacheDataCad = {
         timestamp: new Date().getTime(),
         data: {
           cadValue: this.cadValue,
@@ -55,14 +55,14 @@ export class CadComponent implements OnInit {
           cadLastUpdate: this.cadLastUpdate,
         }
       };
-      localStorage.setItem('currencyDataCad', JSON.stringify(cacheData));
+      localStorage.setItem('currencyDataCad', JSON.stringify(cacheDataCad));
     });
   }
 
   updateCurrencyValues() {
-    const cacheData = localStorage.getItem('currencyDataCad');
-    if (cacheData) {
-      const parsedData = JSON.parse(cacheData);
+    const cacheDataCad = localStorage.getItem('currencyDataCad');
+    if (cacheDataCad) {
+      const parsedData = JSON.parse(cacheDataCad);
       const timestamp = parsedData.timestamp;
       const currentTime = new Date().getTime();
       const timeDiff = currentTime - timestamp;
@@ -106,6 +106,18 @@ export class CadComponent implements OnInit {
 
   reloadPage() {
     this.loading = true;
-    location.reload();
+    setTimeout(() => {
+      location.reload();
+    }, 2000);
+  }
+
+  formatNumberWithComma(value: number): string {
+    const parts = value.toFixed(2).split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return parts.join(',');
+  }
+
+  isNumericValue(value: any): boolean {
+    return typeof value === 'number' && !isNaN(value);
   }
 }

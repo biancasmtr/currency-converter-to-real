@@ -1,23 +1,26 @@
-<div class="currency">
+<div class="currency fixed-height">
   <div class="title">{{ 'Libra Esterlina' }}</div>
-  <ng-container *ngIf="gbpValue !== null || !gbpValue">
-    <span class="value" [ngStyle]="{'color': getCurrencyColor(gbpValue)}">{{ gbpValue | currency: 'BRL' }}</span>
+  <ng-container *ngIf="gbpValue !== null && gbpValue !== undefined && isNumericValue(gbpValue)">
+    <app-number-format class="value" [ngStyle]="{'color': getCurrencyColor(gbpValue)}"
+      [value]="gbpValue"></app-number-format>
+    <div class="info">
+      <div class="variation" *ngIf="gbpValue !== null || !gbpValue">
+        <div class="tit">Variação (%)</div>
+        <span class="var">{{ formatNumberWithComma(gbpVariation) }}</span>
+      </div>
+      <div class="last-update" *ngIf="gbpValue !== null || !gbpValue">
+        <div class="tit">Atualizado</div>
+        <span class="atual">{{ gbpLastUpdate | date: 'HH:mm:ss' }}</span>
+      </div>
+    </div>
   </ng-container>
   <ng-container *ngIf="gbpValue === null || !gbpValue">
-    <span class="error">Algo deu errado</span>
-    <button class="reload-button" (click)="reloadPage()">
-      <img *ngIf="loading" src="../../assets/loader.svg" alt="Loader">
-      <span *ngIf="!loading">Recarregar</span>
-    </button>
+    <div class="msg-erro" *ngIf="!loading">
+      <span class="error">Algo deu errado</span>
+      <button class="reload-button" (click)="reloadPage()">
+        <span>Recarregar</span>
+      </button>
+    </div>
+    <img *ngIf="loading" src="../../assets/loader.svg" alt="Loader">
   </ng-container>
-  <div class="info">
-    <div class="variation"  *ngIf="gbpValue !== null || !gbpValue">
-      <div class="tit">Variação (%)</div>
-      <span class="var">{{ gbpVariation | percent }}</span>
-    </div>
-    <div class="last-update"  *ngIf="gbpValue !== null || !gbpValue">
-      <div class="tit">Atualizado</div>
-      <span class="atual">{{ gbpLastUpdate | date: 'HH:mm:ss' }}</span>
-    </div>
-  </div>
 </div>

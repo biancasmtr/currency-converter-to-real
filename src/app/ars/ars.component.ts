@@ -25,9 +25,9 @@ export class ArsComponent implements OnInit {
   }
 
   fetchCurrencyDataArs() {
-    const cacheData = localStorage.getItem('currencyDataArs');
-    if (cacheData) {
-      const parsedData = JSON.parse(cacheData);
+    const cacheDataArs = localStorage.getItem('currencyDataArs');
+    if (cacheDataArs) {
+      const parsedData = JSON.parse(cacheDataArs);
       const timestamp = parsedData.timestamp;
       const currentTime = new Date().getTime();
       const timeDiff = currentTime - timestamp;
@@ -47,7 +47,7 @@ export class ArsComponent implements OnInit {
       this.arsVariation = parseFloat(arsVariation);
       this.arsLastUpdate = new Date(arsLastUpdate);
 
-      const cacheData = {
+      const cacheDataArs = {
         timestamp: new Date().getTime(),
         data: {
           arsValue: this.arsValue,
@@ -55,14 +55,14 @@ export class ArsComponent implements OnInit {
           arsLastUpdate: this.arsLastUpdate,
         }
       };
-      localStorage.setItem('currencyDataArs', JSON.stringify(cacheData));
+      localStorage.setItem('currencyDataArs', JSON.stringify(cacheDataArs));
     });
   }
 
   updateCurrencyValues() {
-    const cacheData = localStorage.getItem('currencyDataArs');
-    if (cacheData) {
-      const parsedData = JSON.parse(cacheData);
+    const cacheDataArs = localStorage.getItem('currencyDataArs');
+    if (cacheDataArs) {
+      const parsedData = JSON.parse(cacheDataArs);
       const timestamp = parsedData.timestamp;
       const currentTime = new Date().getTime();
       const timeDiff = currentTime - timestamp;
@@ -100,12 +100,24 @@ export class ArsComponent implements OnInit {
 
       const newValue = parseFloat(this.brlValue.toString());
 
-      this.brlValue = 1 / (this.arsValue * newValue);
+      this.brlValue = this.arsValue * newValue;
     }
   }
 
   reloadPage() {
     this.loading = true;
-    location.reload();
+    setTimeout(() => {
+      location.reload();
+    }, 2000);
+  }
+
+  formatNumberWithComma(value: number): string {
+    const parts = value.toFixed(2).split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return parts.join(',');
+  }
+
+  isNumericValue(value: any): boolean {
+    return typeof value === 'number' && !isNaN(value);
   }
 }
