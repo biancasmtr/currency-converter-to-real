@@ -8,6 +8,11 @@ O projeto foi criado em Angular 16. Os testes foram realizados com Jasmine e Kar
 ## Antes de começar
 
 Certifique-se de ter instalado o Node.js 12.22.0 ou superior em sua máquina. Você pode usar o nvm para gerenciar várias versões de nós em sua máquina.
+Certifique-se de ter instalada a última versão do Angular em sua máquina, você pode instalá-lo utilizando o seguinte código em seu prompt de comando: 
+
+```
+npm install - g @angular/cli
+```
 
 ## Começando
 
