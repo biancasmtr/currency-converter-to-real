@@ -16,13 +16,13 @@ Você pode configurar este projeto usando gerenciadores de pacotes npm ou yarn.
 ## Clonar repositório
 
 ``` 
-https://github.com/biancasmtr/currency-converter
+https://github.com/biancasmtr/currency-converter-to-real
 ```
 
 ## Navegue até o repositório clonado
 
 ``` 
-cd currency-converter
+cd currency-converter-to-real
 ```
 
 ## Instalar dependências
@@ -40,3 +40,11 @@ ng serve
 ```
 
 Abra http://localhost:4200 com seu navegador para ver o resultado.
+
+## Teste Unitários
+
+abra seu command line/prompt de comando e dentro da raiz do projetos execute a seguinte instrução
+
+``` 
+ng test
+```
