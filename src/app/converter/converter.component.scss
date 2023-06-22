@@ -22,17 +22,17 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh; /* Alterado para 100vh para ocupar toda a altura da tela */
+  height: 100vh; 
   font-family: 'Poppins', Arial, sans-serif;
   color: #fff;
-  background-color: #eee; /* Movido do HTML para cá para aplicar a cor de fundo ao container */
+  background-color: #eee; 
 
   .currency-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 60px;
-    margin-top: 60px; /* Adicionado margem superior para espaçamento entre o cabeçalho e os componentes */
+    margin-top: 60px;
 
   }
 
@@ -44,10 +44,9 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
-    margin-top: 20px; /* Adicionado margem superior para espaçamento entre os componentes e o botão */
+    margin-top: 20px; 
   }
 }
-
 
 .currency-container {
   display: flex;

@@ -40,7 +40,7 @@ export class CadComponent implements OnInit {
 
     this.http.get('https://economia.awesomeapi.com.br/last/CAD-BRL').subscribe((data: any) => {
       const cadRate = data.CADBRL.ask;
-      const cadVariation = data.CADBRL.pctChange;
+      const cadVariation = data.CADBRL.varBid;
       const cadLastUpdate = data.CADBRL.create_date;
 
       this.cadValue = 1 / cadRate;
@@ -109,4 +109,6 @@ export class CadComponent implements OnInit {
     this.loading = true;
     location.reload();
   }
+  
 }
+

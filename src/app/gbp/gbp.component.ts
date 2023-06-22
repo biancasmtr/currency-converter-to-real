@@ -40,7 +40,7 @@ export class GbpComponent implements OnInit {
 
     this.http.get('https://economia.awesomeapi.com.br/last/GBP-BRL').subscribe((data: any) => {
       const gbpRate = data.GBPBRL.ask;
-      const gbpVariation = data.GBPBRL.pctChange;
+      const gbpVariation = data.GBPBRL.varBid;
       const gbpLastUpdate = data.GBPBRL.create_date;
 
       this.gbpValue = 1 / gbpRate;

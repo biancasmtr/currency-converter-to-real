@@ -1,4 +1,4 @@
-<div class="currency">
+<div class="currency fixed-height">
   <div class="title">Peso Argentino</div>
   <ng-container *ngIf="arsValue !== null || !arsValue">
     <span class="value" [ngStyle]="{'color': getCurrencyColor(arsValue)}">{{ arsValue | currency: 'BRL' }}</span>

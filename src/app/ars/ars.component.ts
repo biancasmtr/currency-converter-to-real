@@ -40,7 +40,7 @@ export class ArsComponent implements OnInit {
 
     this.http.get('https://economia.awesomeapi.com.br/last/ARS-BRL').subscribe((data: any) => {
       const arsRate = data.ARSBRL.ask;
-      const arsVariation = data.ARSBRL.pctChange;
+      const arsVariation = data.ARSBRL.varBid;
       const arsLastUpdate = data.ARSBRL.create_date;
 
       this.arsValue = 1 / arsRate;

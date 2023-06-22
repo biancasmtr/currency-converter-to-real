@@ -10,12 +10,12 @@
       <span *ngIf="!loading">Recarregar</span>
     </button>
   </ng-container>
-  <div class="info">
-    <div class="variation">
+  <div class="info" >
+    <div class="variation" *ngIf="cadValue !== null || !cadValue">
       <div class="tit">Variação (%)</div>
       <span class="var">{{ cadVariation | percent }}</span>
     </div>
-    <div class="last-update">
+    <div class="last-update" *ngIf="cadValue !== null || !cadValue">
       <div class="tit">Atualizado</div>
       <span class="atual">{{ cadLastUpdate | date: 'HH:mm:ss' }}</span>
     </div>
