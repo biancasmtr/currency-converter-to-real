@@ -1,5 +1,5 @@
 <div class="currency">
-  <div class="title">Libra Esterlina</div>
+  <div class="title">{{ 'Libra Esterlina' }}</div>
   <ng-container *ngIf="gbpValue !== null || !gbpValue">
     <span class="value" [ngStyle]="{'color': getCurrencyColor(gbpValue)}">{{ gbpValue | currency: 'BRL' }}</span>
   </ng-container>
@@ -11,11 +11,11 @@
     </button>
   </ng-container>
   <div class="info">
-    <div class="variation">
+    <div class="variation"  *ngIf="gbpValue !== null || !gbpValue">
       <div class="tit">Variação (%)</div>
       <span class="var">{{ gbpVariation | percent }}</span>
     </div>
-    <div class="last-update">
+    <div class="last-update"  *ngIf="gbpValue !== null || !gbpValue">
       <div class="tit">Atualizado</div>
       <span class="atual">{{ gbpLastUpdate | date: 'HH:mm:ss' }}</span>
     </div>

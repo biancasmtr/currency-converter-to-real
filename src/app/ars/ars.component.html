@@ -1,5 +1,5 @@
-<div class="currency fixed-height">
-  <div class="title">Peso Argentino</div>
+<div class="currency">
+  <div class="title">{{ 'Peso Argentino' }}</div>
   <ng-container *ngIf="arsValue !== null || !arsValue">
     <span class="value" [ngStyle]="{'color': getCurrencyColor(arsValue)}">{{ arsValue | currency: 'BRL' }}</span>
   </ng-container>
@@ -10,12 +10,12 @@
       <span *ngIf="!loading">Recarregar</span>
     </button>
   </ng-container>
-  <div class="info">
-    <div class="variation">
+  <div class="info" >
+    <div class="variation" *ngIf="arsValue !== null || !arsValue">
       <div class="tit">Variação (%)</div>
       <span class="var">{{ arsVariation | percent }}</span>
     </div>
-    <div class="last-update">
+    <div class="last-update" *ngIf="arsValue !== null || !arsValue">
       <div class="tit">Atualizado</div>
       <span class="atual">{{ arsLastUpdate | date: 'HH:mm:ss' }}</span>
     </div>

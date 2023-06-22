@@ -10,8 +10,6 @@ export class GbpComponent implements OnInit {
   gbpValue: number = 0;
   gbpVariation: number = 0;
   gbpLastUpdate: Date | null = null;
-  fixedBrlValue: number = 1;
-  brlValue: number | null = null;
   showFixedConversionMessage: boolean = false;
   loading: boolean = false;
 
@@ -31,32 +29,37 @@ export class GbpComponent implements OnInit {
       const timestamp = parsedData.timestamp;
       const currentTime = new Date().getTime();
       const timeDiff = currentTime - timestamp;
-    
-      if (timeDiff <= 180000) { 
-        this.updateCurrencyValues(); 
+
+      if (timeDiff <= 180000) {
+        this.updateCurrencyValues();
         return;
       }
     }
 
-    this.http.get('https://economia.awesomeapi.com.br/last/GBP-BRL').subscribe((data: any) => {
-      const gbpRate = data.GBPBRL.ask;
-      const gbpVariation = data.GBPBRL.varBid;
-      const gbpLastUpdate = data.GBPBRL.create_date;
+    this.http.get('https://economia.awesomeapi.com.br/last/GBP-BRL').subscribe(
+      (data: any) => {
+        const gbpRate = data.GBPBRL.bid;
+        const gbpVariation = data.GBPBRL.varBid;
+        const gbpLastUpdate = data.GBPBRL.create_date;
 
-      this.gbpValue = 1 / gbpRate;
-      this.gbpVariation = gbpVariation;
-      this.gbpLastUpdate = new Date(gbpLastUpdate);
+        this.gbpValue = parseFloat(gbpRate);
+        this.gbpVariation = parseFloat(gbpVariation);
+        this.gbpLastUpdate = new Date(gbpLastUpdate);
 
-      const cacheData = {
-        timestamp: new Date().getTime(),
-        data: {
-          gbpValue: this.gbpValue,
-          gbpVariation: this.gbpVariation,
-          gbpLastUpdate: this.gbpLastUpdate,
-        }
-      };
-      localStorage.setItem('currencyDataGbp', JSON.stringify(cacheData));
-    });
+        const cacheData = {
+          timestamp: new Date().getTime(),
+          data: {
+            gbpValue: this.gbpValue,
+            gbpVariation: this.gbpVariation,
+            gbpLastUpdate: this.gbpLastUpdate,
+          },
+        };
+        localStorage.setItem('currencyDataGbp', JSON.stringify(cacheData));
+      },
+      (error) => {
+        console.error('Ocorreu um erro ao obter os dados da API:', error);
+      }
+    );
   }
 
   updateCurrencyValues() {
@@ -66,8 +69,8 @@ export class GbpComponent implements OnInit {
       const timestamp = parsedData.timestamp;
       const currentTime = new Date().getTime();
       const timeDiff = currentTime - timestamp;
-  
-      if (timeDiff <= 180000) { 
+
+      if (timeDiff <= 180000) {
         this.gbpValue = parsedData.data.gbpValue;
         this.gbpVariation = parsedData.data.gbpVariation;
         this.gbpLastUpdate = new Date(parsedData.data.gbpLastUpdate);
@@ -89,18 +92,18 @@ export class GbpComponent implements OnInit {
   }
 
   convertToCurrency() {
-    if (this.brlValue === null || isNaN(this.brlValue)) {
+    if (!this.gbpValue) {
       return;
     }
-  
-    if (this.brlValue === 1) {
+
+    if (this.gbpValue === 1) {
       this.showFixedConversionMessage = true;
     } else {
       this.showFixedConversionMessage = false;
-  
-      const newValue = parseFloat(this.brlValue.toString());
-  
-      this.gbpValue = this.gbpValue * newValue;
+
+      const newValue = parseFloat(this.gbpValue.toString());
+
+      this.gbpValue = 1 / newValue;
     }
   }
 

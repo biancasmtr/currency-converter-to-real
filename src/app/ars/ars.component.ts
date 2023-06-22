@@ -31,20 +31,20 @@ export class ArsComponent implements OnInit {
       const timestamp = parsedData.timestamp;
       const currentTime = new Date().getTime();
       const timeDiff = currentTime - timestamp;
-    
-      if (timeDiff <= 180000) { 
-        this.updateCurrencyValues(); 
+
+      if (timeDiff <= 180000) {
+        this.updateCurrencyValues();
         return;
       }
     }
 
     this.http.get('https://economia.awesomeapi.com.br/last/ARS-BRL').subscribe((data: any) => {
-      const arsRate = data.ARSBRL.ask;
-      const arsVariation = data.ARSBRL.varBid;
-      const arsLastUpdate = data.ARSBRL.create_date;
+      const arsRate = data['ARSBRL'].ask;
+      const arsVariation = data['ARSBRL'].varBid;
+      const arsLastUpdate = data['ARSBRL'].create_date;
 
-      this.arsValue = 1 / arsRate;
-      this.arsVariation = arsVariation;
+      this.arsValue = parseFloat(arsRate);
+      this.arsVariation = parseFloat(arsVariation);
       this.arsLastUpdate = new Date(arsLastUpdate);
 
       const cacheData = {
@@ -66,12 +66,11 @@ export class ArsComponent implements OnInit {
       const timestamp = parsedData.timestamp;
       const currentTime = new Date().getTime();
       const timeDiff = currentTime - timestamp;
-  
-      if (timeDiff <= 180000) { 
-        const cachedValues = parsedData.data;
-        this.arsValue = cachedValues.arsValue;
-        this.arsVariation = cachedValues.arsVariation;
-        this.arsLastUpdate = new Date(cachedValues.arsLastUpdate);
+
+      if (timeDiff <= 180000) {
+        this.arsValue = parsedData.data.arsValue;
+        this.arsVariation = parsedData.data.arsVariation;
+        this.arsLastUpdate = new Date(parsedData.data.arsLastUpdate);
         return;
       }
     }
@@ -93,15 +92,15 @@ export class ArsComponent implements OnInit {
     if (this.brlValue === null || isNaN(this.brlValue)) {
       return;
     }
-  
+
     if (this.brlValue === 1) {
       this.showFixedConversionMessage = true;
     } else {
       this.showFixedConversionMessage = false;
-  
+
       const newValue = parseFloat(this.brlValue.toString());
-  
-      this.arsValue = this.arsValue * newValue;
+
+      this.brlValue = 1 / (this.arsValue * newValue);
     }
   }
 

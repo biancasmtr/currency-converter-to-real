@@ -31,20 +31,20 @@ export class CadComponent implements OnInit {
       const timestamp = parsedData.timestamp;
       const currentTime = new Date().getTime();
       const timeDiff = currentTime - timestamp;
-    
-      if (timeDiff <= 180000) { 
-        this.updateCurrencyValues(); 
+
+      if (timeDiff <= 180000) {
+        this.updateCurrencyValues();
         return;
       }
     }
 
     this.http.get('https://economia.awesomeapi.com.br/last/CAD-BRL').subscribe((data: any) => {
-      const cadRate = data.CADBRL.ask;
-      const cadVariation = data.CADBRL.varBid;
-      const cadLastUpdate = data.CADBRL.create_date;
+      const cadRate = data['CADBRL'].ask;
+      const cadVariation = data['CADBRL'].varBid;
+      const cadLastUpdate = data['CADBRL'].create_date;
 
-      this.cadValue = 1 / cadRate;
-      this.cadVariation = cadVariation;
+      this.cadValue = parseFloat(cadRate);
+      this.cadVariation = parseFloat(cadVariation);
       this.cadLastUpdate = new Date(cadLastUpdate);
 
       const cacheData = {
@@ -66,12 +66,11 @@ export class CadComponent implements OnInit {
       const timestamp = parsedData.timestamp;
       const currentTime = new Date().getTime();
       const timeDiff = currentTime - timestamp;
-  
-      if (timeDiff <= 180000) { 
-        const cachedValues = parsedData.data;
-        this.cadValue = cachedValues.cadValue;
-        this.cadVariation = cachedValues.cadVariation;
-        this.cadLastUpdate = new Date(cachedValues.cadLastUpdate);
+
+      if (timeDiff <= 180000) {
+        this.cadValue = parsedData.data.cadValue;
+        this.cadVariation = parsedData.data.cadVariation;
+        this.cadLastUpdate = new Date(parsedData.data.cadLastUpdate);
         return;
       }
     }
@@ -93,15 +92,15 @@ export class CadComponent implements OnInit {
     if (this.brlValue === null || isNaN(this.brlValue)) {
       return;
     }
-  
+
     if (this.brlValue === 1) {
       this.showFixedConversionMessage = true;
     } else {
       this.showFixedConversionMessage = false;
-  
+
       const newValue = parseFloat(this.brlValue.toString());
-  
-      this.cadValue = this.cadValue * newValue;
+
+      this.brlValue = this.cadValue * newValue;
     }
   }
 
@@ -109,6 +108,4 @@ export class CadComponent implements OnInit {
     this.loading = true;
     location.reload();
   }
-  
 }
-
