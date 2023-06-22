@@ -44,7 +44,7 @@ npm install
 ng serve
 ```
 
-Abra http://localhost:4200 com seu navegador para ver o resultado.
+Abra http://localhost:4200 (ou a porta que ele sugerir) com seu navegador para ver o resultado.
 
 ## Teste Unitários
 
